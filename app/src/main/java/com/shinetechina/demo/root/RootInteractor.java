@@ -49,6 +49,7 @@ public class RootInteractor
 
                 }
 
+
             });
 
 
@@ -74,7 +75,5 @@ public class RootInteractor
   interface RootPresenter {
 
     Observable navItemSelectionRequest();
-
-
   }
 }

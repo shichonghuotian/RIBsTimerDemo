@@ -1,6 +1,9 @@
 <resources>
 
     <string name="app_name">RIBsTimerDemo</string>
+    <string name="str_timer">Timer</string>
+    <string name="str_history">History</string>
+
     <string name="str_task_name">Task Name</string>
     <string name="str_up">Up</string>
     <string name="str_down">Down</string>

@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -38,22 +39,29 @@ class RootView extends DrawerLayout implements RootInteractor.RootPresenter {
   private ViewGroup mContentView;
 
   private NavigationView mNavigationView;
+
+  private Toolbar mToolbar;
   @Initializer
   @Override
   protected void onFinishInflate() {
     super.onFinishInflate();
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
+    mToolbar.setTitle(R.string.str_timer);
     mContentView = findViewById(R.id.content_layout);
 
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            (Activity)getContext(), this, toolbar, R.string.navigation_drawer_open, R.string
+            (Activity)getContext(), this, mToolbar, R.string.navigation_drawer_open, R.string
             .navigation_drawer_close);
     this.addDrawerListener(toggle);
     toggle.syncState();
 
-//    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//    navigationView.setNavigationItemSelectedListener(this);
+
+  }
+
+  public void setToolbarTitle(String title) {
+     mToolbar.setTitle(title);
+
   }
 
   public void addPageView(View view) {
@@ -72,7 +80,10 @@ class RootView extends DrawerLayout implements RootInteractor.RootPresenter {
   public Observable navItemSelectionRequest() {
 
     return RxNavigationView.itemSelections((NavigationView) findViewById(R.id.nav_view)).subscribeOn
-            (AndroidSchedulers.mainThread()).map(menuItem -> {
+            (AndroidSchedulers.mainThread()).doOnNext(o -> {
+                setToolbarTitle(o.getTitle().toString());
+                closeDrawer(Gravity.START);
+             }).map(menuItem -> {
                int id = menuItem.getItemId();
               if(id == R.id.nav_time_task) {
                 return NavMenuType.TIME;
