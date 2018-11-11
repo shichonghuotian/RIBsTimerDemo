@@ -99,7 +99,7 @@ public class TimeTaskInteractor
   public void saveTimeTask() {
 
     TimeTaskEntity entity = new TimeTaskEntity();
-    entity.setTaskName("task_name " + System.currentTimeMillis());
+    entity.setTaskName(presenter.getTimeTaskName());
     entity.setTotalSeconds(timeSecondCount);
     entity.setCreateTime(System.currentTimeMillis());
     entity.setFinishSeconds(0);
