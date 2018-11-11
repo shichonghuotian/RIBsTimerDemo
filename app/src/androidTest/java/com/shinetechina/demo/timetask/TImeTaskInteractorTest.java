@@ -1,4 +1,4 @@
-package com.shinetechina.demo.time_task;
+package com.shinetechina.demo.timetask;
 
 import com.uber.rib.core.RibTestBasePlaceholder;
 import com.uber.rib.core.InteractorHelper;

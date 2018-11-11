@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import com.shinetechina.demo.R;
 import com.shinetechina.demo.common.di.AppComponent;
 import com.shinetechina.demo.history.HistoryBuilder;
-import com.shinetechina.demo.time_task.TimeTaskBuilder;
+import com.shinetechina.demo.timetask.TimeTaskBuilder;
 import com.uber.rib.core.InteractorBaseComponent;
 import com.uber.rib.core.ViewBuilder;
 

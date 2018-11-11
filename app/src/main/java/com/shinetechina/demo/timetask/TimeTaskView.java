@@ -1,4 +1,4 @@
-package com.shinetechina.demo.time_task;
+package com.shinetechina.demo.timetask;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.shinetechina.demo.R;
@@ -67,7 +68,7 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
   }
 
   @Override
-  public Observable startRequest() {
+  public Observable<Object> startRequest() {
     return RxView.clicks(mStartButton)
             .throttleFirst(100,TimeUnit.MILLISECONDS)
             .subscribeOn(AndroidSchedulers.mainThread());
@@ -88,5 +89,13 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
   @Override
   public void resetTimeTask() {
 
+    mTaskNameEditText.setText("");
+
+    chageStartButtonStatus(true);
+  }
+
+  @Override
+  public void showToast(String text) {
+    Toast.makeText(getContext(),text,Toast.LENGTH_SHORT).show();
   }
 }
