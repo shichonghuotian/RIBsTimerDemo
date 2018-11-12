@@ -18,6 +18,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Coordinates Business Logic for {@link TimeTaskScope}.
@@ -56,6 +57,38 @@ public class TimeTaskInteractor
 
 
 //        setTimeText(allSeconds);
+        presenter.upLongRequest().subscribe(o -> {
+
+
+            Observable.interval(100,TimeUnit.MILLISECONDS)
+                    .subscribeOn(Schedulers.computation())
+                    .takeUntil(presenter.touchupObservable())
+                    .concatMap(e -> secondsIncrementObservable())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(b -> {
+
+                        setTimeText(allSeconds);
+
+
+                    });
+        });
+        presenter.downLongRequest().subscribe(o -> {
+
+
+            Observable.interval(100,TimeUnit.MILLISECONDS)
+                    .subscribeOn(Schedulers.computation())
+                    .takeUntil(presenter.touchupObservable())
+                    .concatMap(e -> secondsDecrementObservable())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(b -> {
+
+                        setTimeText(allSeconds);
+
+
+                    });
+        });
+
+
         presenter.upRequest()
                 .filter(o -> {
                   return   isTimerIdle();
@@ -65,19 +98,10 @@ public class TimeTaskInteractor
                 .to(new ObservableScoper<>(this))
                 .subscribe(o ->
                 {
-
                     setTimeText(allSeconds);
 
                 });
 
-//        presenter.upLongRequest().subscribe(o -> {
-//
-//            Log.i("w","upLongRequest");
-//        });
-//        presenter.upLongCancelRequest().subscribe(o -> {
-//
-//            Log.e("w","upLongCancelRequest");
-//        });
 
 
         presenter.downRequest()
@@ -199,7 +223,7 @@ public class TimeTaskInteractor
                 emitter.onNext(allSeconds);
 
             }
-//            emitter.onComplete();
+            emitter.onComplete();
         });
     }
 
@@ -248,8 +272,9 @@ public class TimeTaskInteractor
         Observable<Object> upRequest();
 
         Observable<Object> upLongRequest();
-        Observable<Object> upLongCancelRequest();
+        Observable<Object> touchupObservable();
         Observable<Object> downRequest();
+        Observable<Object> downLongRequest();
 
         String getTimeTaskName();
 

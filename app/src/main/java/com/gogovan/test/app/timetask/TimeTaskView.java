@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Predicate;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Top level view for {@link TimeTaskBuilder.TimeTaskScope}.
@@ -43,6 +43,9 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
 
     private Button mStartButton;
 
+
+    private PublishSubject<Object> mTouchCancelSubject;
+
     @Initializer
     @Override
     protected void onFinishInflate() {
@@ -51,14 +54,27 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
         mTimeTextView = findViewById(R.id.time_count_text);
         mStartButton = findViewById(R.id.start_button);
 
+        mTouchCancelSubject = PublishSubject.create();
     }
 
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
 
-        Log.e("w", "ontouch = " + event.getAction());
-        return super.onTouchEvent(event);
+//        mTouchCancelSubject.disponse();
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if(ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent
+                .ACTION_CANCEL) {
+
+            Log.e("w","action = " + ev.getAction());
+
+            mTouchCancelSubject.onNext(ev);
+        }
+        return super.onInterceptTouchEvent(ev);
     }
 
     @Override
@@ -76,17 +92,12 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
                 .mainThread());
     }
 
-    public Observable<Object> upLongCancelRequest() {
-        return RxView.touches(findViewById(R.id.up_button), new Predicate<MotionEvent>() {
-            @Override
-            public boolean test(MotionEvent motionEvent) throws Exception {
-                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    return true;
-                }
-                return false;
-            }
-        }).map(e -> false);
+    @Override
+    public Observable<Object> touchupObservable() {
+        return mTouchCancelSubject;
     }
+
+
 
 
     @Override
@@ -97,6 +108,14 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
                 .throttleFirst(100, TimeUnit.MILLISECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread());
     }
+
+    @Override
+    public Observable<Object> downLongRequest() {
+        return RxView.longClicks(findViewById(R.id.down_button))
+                .subscribeOn(AndroidSchedulers
+                        .mainThread());
+    }
+
 
 
     @Override
@@ -145,4 +164,6 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
     public void showToast(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
+
+
 }
