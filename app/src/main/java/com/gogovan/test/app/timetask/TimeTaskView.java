@@ -42,6 +42,8 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
     private TextView mTimeTextView;
 
     private Button mStartButton;
+    private Button mUpButton;
+    private Button mDownButton;
 
 
     private PublishSubject<Object> mTouchCancelSubject;
@@ -54,6 +56,8 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
         mTimeTextView = findViewById(R.id.time_count_text);
         mStartButton = findViewById(R.id.start_button);
 
+        mUpButton = findViewById(R.id.up_button);
+        mDownButton = findViewById(R.id.down_button);
         mTouchCancelSubject = PublishSubject.create();
     }
 
@@ -158,11 +162,21 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
         mTaskNameEditText.setText("");
 
         chageStartButtonStatus(TimeTaskInteractor.TimerStatus.Idle);
+        setUpAndDownEabled(true);
     }
 
     @Override
     public void showToast(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setUpAndDownEabled(boolean enabled) {
+
+        mUpButton.setEnabled(enabled);
+        mDownButton.setEnabled(enabled);
+        mTaskNameEditText.setEnabled(enabled);
+
     }
 
 

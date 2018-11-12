@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.gogovan.test.app.common.Utils.WUtils;
 import com.shinetechina.demo.R;
 import com.gogovan.test.app.common.data.entities.TimeTaskEntity;
 
@@ -51,16 +52,21 @@ public class HostoryListAdapter extends RecyclerView.Adapter<HostoryListAdapter.
 
         TextView nameTextView;
 
+        TextView timeTextView;
+
         public ItemViewHolder(View itemView) {
 
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.task_name_text);
+            timeTextView = itemView.findViewById(R.id.time_text);
         }
 
         public void setTimeTask(TimeTaskEntity entity) {
 
             nameTextView.setText(entity.getTaskName());
+
+            timeTextView.setText(WUtils.stringFromTime(entity.getFinishSeconds()));
         }
     }
 }

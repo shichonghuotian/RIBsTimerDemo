@@ -125,6 +125,7 @@ public class TimeTaskInteractor
                         if (this.timerStatus == TimerStatus.Idle) {
                             this.timerStatus = TimerStatus.Running;
 
+                            presenter.setUpAndDownEabled(false);
                             startTimer();
 
                         } else if(this.timerStatus == TimerStatus.Running){
@@ -289,6 +290,7 @@ public class TimeTaskInteractor
 
         void showToast(String text);
 
+        void setUpAndDownEabled(boolean enabled);
     }
 
     static enum TimerStatus {
