@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -44,6 +45,7 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
     private Button mStartButton;
     private Button mUpButton;
     private Button mDownButton;
+    private Button mResetButton;
 
 
     private PublishSubject<Object> mTouchCancelSubject;
@@ -58,6 +60,7 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
 
         mUpButton = findViewById(R.id.up_button);
         mDownButton = findViewById(R.id.down_button);
+        mResetButton = findViewById(R.id.reset_button);
         mTouchCancelSubject = PublishSubject.create();
     }
 
@@ -84,14 +87,14 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
     @Override
     public Observable<Object> upRequest() {
 
-        return RxView.clicks(findViewById(R.id.up_button))
+        return RxView.clicks(mUpButton)
                 .throttleFirst(100, TimeUnit.MILLISECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<Object> upLongRequest() {
-        return RxView.longClicks(findViewById(R.id.up_button))
+        return RxView.longClicks(mUpButton)
                 .subscribeOn(AndroidSchedulers
                 .mainThread());
     }
@@ -108,18 +111,23 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
     public Observable downRequest() {
 
 
-        return RxView.clicks(findViewById(R.id.down_button))
+        return RxView.clicks(mDownButton)
                 .throttleFirst(100, TimeUnit.MILLISECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<Object> downLongRequest() {
-        return RxView.longClicks(findViewById(R.id.down_button))
+        return RxView.longClicks(mDownButton)
                 .subscribeOn(AndroidSchedulers
                         .mainThread());
     }
 
+    @Override
+    public Observable<Object> resetRequest() {
+        return RxView.clicks(findViewById(R.id.reset_button)).subscribeOn(AndroidSchedulers
+                .mainThread());
+    }
 
 
     @Override
@@ -163,11 +171,17 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
 
         chageStartButtonStatus(TimeTaskInteractor.TimerStatus.Idle);
         setUpAndDownEabled(true);
+        showResetButton(false);
     }
 
     @Override
     public void showToast(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showEditTextError(String text) {
+        mTaskNameEditText.setError(text);
     }
 
     @Override
@@ -177,6 +191,11 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
         mDownButton.setEnabled(enabled);
         mTaskNameEditText.setEnabled(enabled);
 
+    }
+
+    @Override
+    public void showResetButton(boolean show) {
+        mResetButton.setVisibility(show? View.VISIBLE: View.INVISIBLE);
     }
 
 

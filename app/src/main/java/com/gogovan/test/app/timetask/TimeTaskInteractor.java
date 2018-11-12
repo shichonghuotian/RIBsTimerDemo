@@ -2,7 +2,6 @@ package com.gogovan.test.app.timetask;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.gogovan.test.app.common.Utils.WUtils;
 import com.gogovan.test.app.common.data.TimeTasksRepository;
@@ -126,6 +125,7 @@ public class TimeTaskInteractor
                             this.timerStatus = TimerStatus.Running;
 
                             presenter.setUpAndDownEabled(false);
+                            presenter.showResetButton(true);
                             startTimer();
 
                         } else if(this.timerStatus == TimerStatus.Running){
@@ -141,8 +141,20 @@ public class TimeTaskInteractor
 
                         presenter.chageStartButtonStatus(this.timerStatus);
                     } else {
-                        presenter.showToast("Task name can't Null");
+//                        presenter.showToast("Task name can't Null");
+
+                        presenter.showEditTextError("Please input task name");
                     }
+                });
+
+        presenter.resetRequest()
+                .filter(o -> !isTimerIdle())
+                .to(new ObservableScoper<>(this))
+
+                .subscribe(o -> {
+
+                    stopTimer();
+                    reset();
                 });
 
     }
@@ -184,6 +196,7 @@ public class TimeTaskInteractor
         }
 
     }
+
 
     public void endTimer() {
 
@@ -246,7 +259,7 @@ public class TimeTaskInteractor
         timeTasksRepository.saveTimeTask(entity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(o -> {
-                    presenter.showToast("Save task success, "+ lastSecond +" seconds");
+                    presenter.showToast("Save task success, "+ entity.getFinishSeconds() +" seconds");
 
                 });
     }
@@ -276,6 +289,9 @@ public class TimeTaskInteractor
         Observable<Object> touchupObservable();
         Observable<Object> downRequest();
         Observable<Object> downLongRequest();
+        Observable<Object> resetRequest();
+
+
 
         String getTimeTaskName();
 
@@ -290,7 +306,11 @@ public class TimeTaskInteractor
 
         void showToast(String text);
 
+        void showEditTextError(String text);
+
         void setUpAndDownEabled(boolean enabled);
+
+        void showResetButton(boolean show);
     }
 
     static enum TimerStatus {

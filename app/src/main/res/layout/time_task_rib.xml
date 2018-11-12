@@ -51,14 +51,30 @@
 
     </LinearLayout>
 
-    <Button
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_margin="16dp"
         android:layout_marginTop="32dp"
-        android:layout_gravity="right"
-        android:id="@+id/start_button"
-        android:text="@string/str_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
+        >
+
+        <Button
+            android:id="@+id/reset_button"
+            android:text="@string/str_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_alignParentRight="true"
+            android:id="@+id/start_button"
+            android:text="@string/str_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
 
 
 </com.gogovan.test.app.timetask.TimeTaskView>
