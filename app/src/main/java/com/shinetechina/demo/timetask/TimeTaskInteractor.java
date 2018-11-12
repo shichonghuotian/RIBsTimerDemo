@@ -30,8 +30,8 @@ public class TimeTaskInteractor
         extends Interactor<TimeTaskInteractor.TimeTaskPresenter, TimeTaskRouter> {
 
     private static final int MIN_TIME_SECOND = 1;
-    private static final int MAX_TIME_SECOND = 60*60-1;
-    private static final int DEFAULT_TIME_SECOND = 10;
+    private static final int MAX_TIME_SECOND = 24*60*60-1;
+    private static final int DEFAULT_TIME_SECOND = 60;
 
 
 
@@ -42,8 +42,7 @@ public class TimeTaskInteractor
 
     private long lastSecond;
 
-    boolean isTimerIdle = true;
-    private Disposable disposable;
+    TimerStatus timerStatus = TimerStatus.Idle;
 
     private Rx2Timer timer;
 
@@ -59,7 +58,7 @@ public class TimeTaskInteractor
 //        setTimeText(allSeconds);
         presenter.upRequest()
                 .filter(o -> {
-                  return   isTimerIdle;
+                  return   isTimerIdle();
                 })
                 .concatMap(o -> secondsIncrementObservable())
 
@@ -73,7 +72,7 @@ public class TimeTaskInteractor
 
 
         presenter.downRequest()
-                .filter(o -> isTimerIdle)
+                .filter(o -> isTimerIdle())
                 .concatMap(o -> secondsDecrementObservable())
                 .to(new ObservableScoper<>(this))
                 .subscribe(o -> {
@@ -86,16 +85,24 @@ public class TimeTaskInteractor
 
                 .subscribe(b -> {
                     if (b) {
-                        if (this.isTimerIdle) {
+
+                        if (this.timerStatus == TimerStatus.Idle) {
+                            this.timerStatus = TimerStatus.Running;
+
                             startTimer();
 
-                        } else {
+                        } else if(this.timerStatus == TimerStatus.Running){
+                            this.timerStatus = TimerStatus.Pause;
+
                             stopTimer();
 
+                        }else if(this.timerStatus == TimerStatus.Pause) {
+                            this.timerStatus = TimerStatus.Running;
+
+                            resumeTimer();
                         }
 
-                        this.isTimerIdle = !this.isTimerIdle;
-                        presenter.chageStartButtonStatus(this.isTimerIdle);
+                        presenter.chageStartButtonStatus(this.timerStatus);
                     } else {
                         presenter.showToast("Task name can't Null");
                     }
@@ -103,9 +110,8 @@ public class TimeTaskInteractor
 
     }
 
-    protected void startTimer() {
+    private void startTimer() {
 
-        presenter.showToast("timer start");
 
         timer = Rx2Timer.builder()
                 .initialDelay(0)
@@ -118,22 +124,42 @@ public class TimeTaskInteractor
                     setTimeText(count);
 
                 })
-//                .onError(e -> System.out.println(""))
-                .onComplete(() -> saveTimeTask())
+                .onError(e -> {endTimer();})
+                .onComplete(() -> endTimer())
                 .build();
 
         timer.start();
 
     }
 
-    protected void stopTimer() {
-        presenter.showToast("timer stop");
+    private void stopTimer() {
 
         if (timer != null) {
-            timer.stop();
+            timer.pause();
             saveTimeTask();
         }
 
+    }
+
+    private void resumeTimer() {
+        if (timer != null) {
+            timer.resume();
+        }
+
+    }
+
+    public void endTimer() {
+
+        if (timer != null) {
+
+            saveTimeTask();
+            reset();
+        }
+    }
+
+    private boolean isTimerIdle() {
+
+        return timerStatus == TimerStatus.Idle;
     }
 
     private boolean canStartTimer() {
@@ -183,8 +209,8 @@ public class TimeTaskInteractor
         timeTasksRepository.saveTimeTask(entity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(o -> {
+                    presenter.showToast("Save task success, "+ lastSecond +" seconds");
 
-                    reset();
                 });
     }
 
@@ -196,7 +222,7 @@ public class TimeTaskInteractor
 
     private void reset() {
         allSeconds = DEFAULT_TIME_SECOND;
-        isTimerIdle = true;
+        this.timerStatus = TimerStatus.Idle;
         presenter.resetTimeTask();
         setTimeText(allSeconds);
     }
@@ -217,11 +243,18 @@ public class TimeTaskInteractor
         void setTimeText(String text);
 
 
-        void chageStartButtonStatus(boolean start);
+        public void chageStartButtonStatus(TimeTaskInteractor.TimerStatus timerStatus);
 
         void resetTimeTask();
 
         void showToast(String text);
 
+    }
+
+    static enum TimerStatus {
+
+        Idle,
+        Running,
+        Pause,
     }
 }

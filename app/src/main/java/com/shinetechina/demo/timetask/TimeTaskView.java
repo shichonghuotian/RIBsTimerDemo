@@ -23,79 +23,90 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  */
 class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPresenter {
 
-  public TimeTaskView(Context context) {
-    this(context, null);
-  }
+    public TimeTaskView(Context context) {
+        this(context, null);
+    }
 
-  public TimeTaskView(Context context, @Nullable AttributeSet attrs) {
-    this(context, attrs, 0);
-  }
+    public TimeTaskView(Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
 
-  public TimeTaskView(Context context, @Nullable AttributeSet attrs, int defStyle) {
-    super(context, attrs, defStyle);
-  }
+    public TimeTaskView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
 
-  private EditText mTaskNameEditText;
-  private TextView mTimeTextView;
+    private EditText mTaskNameEditText;
+    private TextView mTimeTextView;
 
-  private Button mStartButton;
-  @Initializer
-  @Override
-  protected void onFinishInflate() {
-    super.onFinishInflate();
-    mTaskNameEditText = findViewById(R.id.task_name_edit);
-    mTimeTextView = findViewById(R.id.time_count_text);
-    mStartButton = findViewById(R.id.start_button);
-  }
+    private Button mStartButton;
 
-  @Override
-  public Observable<Object> upRequest() {
-    return RxView.clicks(findViewById(R.id.up_button))
-            .throttleFirst(1,TimeUnit.MILLISECONDS)
-            .subscribeOn(AndroidSchedulers.mainThread());
-  }
+    @Initializer
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        mTaskNameEditText = findViewById(R.id.task_name_edit);
+        mTimeTextView = findViewById(R.id.time_count_text);
+        mStartButton = findViewById(R.id.start_button);
+    }
 
-  @Override
-  public Observable downRequest() {
-    return RxView.clicks(findViewById(R.id.down_button))
-            .throttleFirst(100,TimeUnit.MILLISECONDS)
-            .subscribeOn(AndroidSchedulers.mainThread());
-  }
+    @Override
+    public Observable<Object> upRequest() {
+        return RxView.clicks(findViewById(R.id.up_button))
+                .throttleFirst(1, TimeUnit.MILLISECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread());
+    }
 
-  @Override
-  public String getTimeTaskName() {
-    return mTaskNameEditText.getText().toString().trim();
-  }
+    @Override
+    public Observable downRequest() {
+        return RxView.clicks(findViewById(R.id.down_button))
+                .throttleFirst(100, TimeUnit.MILLISECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread());
+    }
 
-  @Override
-  public Observable<Object> startRequest() {
-    return RxView.clicks(mStartButton)
-            .throttleFirst(100,TimeUnit.MILLISECONDS)
-            .subscribeOn(AndroidSchedulers.mainThread());
-  }
+    @Override
+    public String getTimeTaskName() {
+        return mTaskNameEditText.getText().toString().trim();
+    }
 
-  @Override
-  public void setTimeText(String text) {
+    @Override
+    public Observable<Object> startRequest() {
+        return RxView.clicks(mStartButton)
+                .throttleFirst(100, TimeUnit.MILLISECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread());
+    }
 
-      mTimeTextView.setText(text);
-  }
+    @Override
+    public void setTimeText(String text) {
 
-  @Override
-  public void chageStartButtonStatus(boolean start) {
+        mTimeTextView.setText(text);
+    }
 
-    mStartButton.setText(start?R.string.str_start:R.string.str_stop);
-  }
+    @Override
+    public void chageStartButtonStatus(TimeTaskInteractor.TimerStatus timerStatus) {
 
-  @Override
-  public void resetTimeTask() {
+        if (timerStatus == TimeTaskInteractor.TimerStatus.Idle) {
 
-    mTaskNameEditText.setText("");
+            mStartButton.setText(R.string.str_start);
+        } else if (timerStatus == TimeTaskInteractor.TimerStatus.Running) {
+            mStartButton.setText(R.string.str_stop);
 
-    chageStartButtonStatus(true);
-  }
+        } else if (timerStatus == TimeTaskInteractor.TimerStatus.Pause) {
 
-  @Override
-  public void showToast(String text) {
-    Toast.makeText(getContext(),text,Toast.LENGTH_SHORT).show();
-  }
+            mStartButton.setText(R.string.str_pause);
+
+        }
+    }
+
+    @Override
+    public void resetTimeTask() {
+
+        mTaskNameEditText.setText("");
+
+        chageStartButtonStatus(TimeTaskInteractor.TimerStatus.Idle);
+    }
+
+    @Override
+    public void showToast(String text) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
 }

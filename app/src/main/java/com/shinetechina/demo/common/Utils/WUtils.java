@@ -21,12 +21,20 @@ public class WUtils {
      */
     public static String stringFromTime(long totalSeconds) {
 
+        long hours = (totalSeconds/3600);
         long seconds = totalSeconds % 60;
         long minutes = (totalSeconds/60)%60;
         formaterBuilder.setLength(0);
 
+//        if(hours >0) {
+//
+//        }else {
+//            return formatter.format("%02d:%02d",minutes,seconds).toString();
+//
+//        }
 
-      return formatter.format("%02d:%02d",minutes,seconds).toString();
+        return formatter.format("%02d:%02d:%02d",hours,minutes,seconds).toString();
+
 
     }
 

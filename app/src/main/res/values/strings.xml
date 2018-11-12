@@ -9,6 +9,8 @@
     <string name="str_down">Down</string>
     <string name="str_start">Start</string>
     <string name="str_stop">Stop</string>
+    <string name="str_pause">Continue</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Ribs demo</string>
