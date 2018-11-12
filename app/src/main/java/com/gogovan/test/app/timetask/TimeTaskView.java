@@ -3,6 +3,8 @@ package com.gogovan.test.app.timetask;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -17,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Predicate;
 
 /**
  * Top level view for {@link TimeTaskBuilder.TimeTaskScope}.
@@ -52,15 +55,43 @@ class TimeTaskView extends LinearLayout implements TimeTaskInteractor.TimeTaskPr
 
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        Log.e("w", "ontouch = " + event.getAction());
+        return super.onTouchEvent(event);
+    }
+
+    @Override
     public Observable<Object> upRequest() {
 
         return RxView.clicks(findViewById(R.id.up_button))
-                .throttleFirst(1, TimeUnit.MILLISECONDS)
+                .throttleFirst(100, TimeUnit.MILLISECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
+    public Observable<Object> upLongRequest() {
+        return RxView.longClicks(findViewById(R.id.up_button))
+                .subscribeOn(AndroidSchedulers
+                .mainThread());
+    }
+
+    public Observable<Object> upLongCancelRequest() {
+        return RxView.touches(findViewById(R.id.up_button), new Predicate<MotionEvent>() {
+            @Override
+            public boolean test(MotionEvent motionEvent) throws Exception {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    return true;
+                }
+                return false;
+            }
+        }).map(e -> false);
+    }
+
+
+    @Override
     public Observable downRequest() {
+
 
         return RxView.clicks(findViewById(R.id.down_button))
                 .throttleFirst(100, TimeUnit.MILLISECONDS)

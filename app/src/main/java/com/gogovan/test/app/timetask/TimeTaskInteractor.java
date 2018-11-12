@@ -2,6 +2,7 @@ package com.gogovan.test.app.timetask;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.gogovan.test.app.common.Utils.WUtils;
 import com.gogovan.test.app.common.data.TimeTasksRepository;
@@ -68,6 +69,15 @@ public class TimeTaskInteractor
                     setTimeText(allSeconds);
 
                 });
+
+//        presenter.upLongRequest().subscribe(o -> {
+//
+//            Log.i("w","upLongRequest");
+//        });
+//        presenter.upLongCancelRequest().subscribe(o -> {
+//
+//            Log.e("w","upLongCancelRequest");
+//        });
 
 
         presenter.downRequest()
@@ -237,6 +247,8 @@ public class TimeTaskInteractor
 
         Observable<Object> upRequest();
 
+        Observable<Object> upLongRequest();
+        Observable<Object> upLongCancelRequest();
         Observable<Object> downRequest();
 
         String getTimeTaskName();
