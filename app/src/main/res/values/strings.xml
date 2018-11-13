@@ -1,22 +1,5 @@
 <resources>
 
     <string name="app_name">RIBsTimerDemo</string>
-    <string name="str_timer">Timer</string>
-    <string name="str_history">History</string>
-
-    <string name="str_task_name">Task Name</string>
-    <string name="str_up">Up</string>
-    <string name="str_down">Down</string>
-    <string name="str_start">Start</string>
-    <string name="str_stop">Stop</string>
-    <string name="str_pause">Continue</string>
-    <string name="str_reset">Reset</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Ribs demo</string>
-    <string name="nav_header_subtitle">ribs@gogovan.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
 </resources>

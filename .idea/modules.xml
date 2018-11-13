@@ -4,6 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RIBsTimerDemo.iml" filepath="$PROJECT_DIR$/RIBsTimerDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module_common/module_common.iml" filepath="$PROJECT_DIR$/module_common/module_common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module_history/module_history.iml" filepath="$PROJECT_DIR$/module_history/module_history.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module_root/module_root.iml" filepath="$PROJECT_DIR$/module_root/module_root.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module_timetask/module_timetask.iml" filepath="$PROJECT_DIR$/module_timetask/module_timetask.iml" />
     </modules>
   </component>
 </project>

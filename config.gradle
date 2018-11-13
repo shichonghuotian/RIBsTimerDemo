@@ -1,0 +1,90 @@
+
+//存放一些公共的信息
+
+def build = [
+            compileSdkVersion: 27,
+            buildToolsVersion: "27.0.1",
+            minSdkVersion: 21,
+            targetSdkVersion:27,
+            versionCode: 2,
+            versionName: "1.0"
+]
+
+def versions = [
+        dagger: "2.17",
+        support: "27.1.1",
+        rxjava: "2.2.2",
+        rxbinding: "2.1.0",
+        uber: "0.9.1",
+        autodispose: "0.2.0",
+        room: "1.0.0",
+        constraint: "1.1.3"
+
+]
+
+def apt = [
+        room: "android.arch.persistence.room:compiler:${versions.room}",
+        uber: "com.uber.rib:rib-compiler-test:${versions.uber}",
+        dagger: "com.google.dagger:dagger-compiler:${versions.dagger}",
+        daggerprocess: "com.google.dagger:dagger-android-processor:${versions.dagger}"
+]
+
+
+def support = [
+        appcompat: "com.android.support:appcompat-v7:${versions.support}",
+        annotations: "com.android.support:support-annotations:${versions.support}",
+        recyclerview: "com.android.support:recyclerview-v7:${versions.support}",
+        design: "com.android.support:design:${versions.support}",
+        constraint: "com.android.support.constraint:constraint-layout:${versions.constraint}",
+]
+
+def test = [
+
+        junit: "junit:junit:4.12",
+        mockito: "org.mockito:mockito-core:2.0.42-beta",
+        assertj: "org.assertj:assertj-core:2.6.0",
+        compileTesting: "com.google.testing.compile:compile-testing:0.11",
+]
+
+def androidtest = [
+        android: "com.android.support.test:runner:1.0.2",
+        espresso: "com.android.support.test.espresso:espresso-core:3.0.2",
+        usber: "com.uber.rib:rib-test-utils:${versions.uber}"
+
+
+]
+
+def external = [
+//        rx
+        rxjava2: "io.reactivex.rxjava2:rxjava:${versions.rxjava}",
+        rxandroid2: "io.reactivex.rxjava2:rxandroid:2.1.0",
+//        rxbind
+        rxbinding: "com.jakewharton.rxbinding2:rxbinding:${versions.rxbinding}",
+        rxbinding_support_v4: "com.jakewharton.rxbinding2:rxbinding-support-v4:${versions.rxbinding}",
+        rxbinding_appcompat: "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${versions.rxbinding}",
+        rxbinding_design: "com.jakewharton.rxbinding2:rxbinding-design:${versions.rxbinding}",
+
+//        dagger
+        dagger: "com.google.dagger:dagger:${versions.dagger}",
+        daggerandroid: "com.google.dagger:dagger-android-support:${versions.dagger}",
+//        room
+        room: "android.arch.persistence.room:runtime:${versions.room}",
+        rxroom: "android.arch.persistence.room:rxjava2:${versions.room}",
+
+//        uber
+        uber_android: "com.uber.rib:rib-android:${versions.uber}",
+        uber_android_workflow: "com.uber.rib:rib-workflow:${versions.uber}",
+        uber_autodispose: "com.uber.autodispose:autodispose:${versions.autodispose}",
+        uber_autodispose_android: "com.uber.autodispose:autodispose-android:${versions.autodispose}",
+
+]
+
+ext.deps = [
+        "apt": apt,
+        "build": build,
+        "external": external,
+        "support": support,
+        "test": test,
+        "androidtest": androidtest,
+        "versions": versions,
+]

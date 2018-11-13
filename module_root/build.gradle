@@ -1,0 +1,57 @@
+if (isModule.toBoolean()) {
+
+    apply plugin: 'com.android.application'
+
+} else {
+
+    apply plugin: 'com.android.library'
+
+}
+
+android {
+    compileSdkVersion deps.build.compileSdkVersion
+
+    defaultConfig {
+//        applicationId "com.gogovan.root"
+        minSdkVersion deps.build.minSdkVersion
+        targetSdkVersion deps.build.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':module_history')
+    implementation project(':module_timetask')
+    implementation project(':module_common')
+
+
+
+    annotationProcessor deps.apt.uber
+    annotationProcessor deps.apt.dagger
+    annotationProcessor deps.apt.daggerprocess
+    annotationProcessor deps.apt.room
+
+
+    testImplementation deps.test.junit
+    androidTestImplementation deps.androidtest.espresso
+    androidTestImplementation deps.androidtest.usber
+    androidTestImplementation deps.androidtest.android
+
+}

@@ -1,0 +1,65 @@
+apply plugin: 'com.android.library'
+
+android {
+
+    compileSdkVersion deps.build.compileSdkVersion
+    defaultConfig {
+        minSdkVersion deps.build.minSdkVersion
+        targetSdkVersion deps.build.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    annotationProcessor deps.apt.uber
+    annotationProcessor deps.apt.room
+    annotationProcessor deps.apt.dagger
+    annotationProcessor deps.apt.daggerprocess
+
+    testImplementation deps.test.junit
+    androidTestImplementation deps.androidtest.espresso
+    androidTestImplementation deps.androidtest.usber
+    androidTestImplementation deps.androidtest.android
+
+    api deps.support.appcompat
+    api deps.support.constraint
+    implementation deps.support.recyclerview
+    api deps.support.annotations
+    api deps.support.design
+
+    api deps.external.rxjava2
+    api deps.external.rxandroid2
+
+    api deps.external.rxbinding
+    api deps.external.rxbinding_support_v4
+    api deps.external.rxbinding_appcompat
+    api deps.external.rxbinding_design
+
+
+    api deps.external.dagger
+    api deps.external.daggerandroid
+
+    api deps.external.room
+    api deps.external.rxroom
+
+    api deps.external.uber_android
+    api deps.external.uber_android_workflow
+    api deps.external.uber_autodispose
+    api deps.external.uber_autodispose_android
+}
