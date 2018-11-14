@@ -13,7 +13,7 @@ import com.gogovan.utils.WUtils;
 import java.util.List;
 
 /**
- * RecyclerView adapter 历史记录的显示
+ * RecyclerView adapter for displaying history
  * Created by Arthur on 2018/11/10.
  */
 public class HostoryListAdapter extends RecyclerView.Adapter<HostoryListAdapter.ItemViewHolder> {
@@ -48,8 +48,10 @@ public class HostoryListAdapter extends RecyclerView.Adapter<HostoryListAdapter.
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
+        //name input
         TextView nameTextView;
 
+        //time input
         TextView timeTextView;
 
         public ItemViewHolder(View itemView) {

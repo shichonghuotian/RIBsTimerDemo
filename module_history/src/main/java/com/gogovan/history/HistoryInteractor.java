@@ -17,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 /**
  * Coordinates Business Logic for {@link HistoryScope}.
  * <p>
- * 显示历史记录
+ * Show history
  */
 @RibInteractor
 public class HistoryInteractor
@@ -35,7 +35,7 @@ public class HistoryInteractor
         super.didBecomeActive(savedInstanceState);
 
 
-        //从本地取出保存的task
+        //get all tasks saved locally
         repository.getAllTask()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(list -> {
@@ -57,7 +57,7 @@ public class HistoryInteractor
     interface HistoryPresenter {
 
         /**
-         * 加载
+         * load data
          *
          * @param list
          */
