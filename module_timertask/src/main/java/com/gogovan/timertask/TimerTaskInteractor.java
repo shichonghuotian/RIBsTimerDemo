@@ -99,7 +99,7 @@ public class TimerTaskInteractor
 
                     setTimeText(allSeconds);
 
-        });
+                });
 
         /**
          * auto-reducing by long tap
@@ -108,7 +108,7 @@ public class TimerTaskInteractor
         presenter.downLongRequest()
                 .flatMap(o -> {
 
-                    return  Observable.interval(100, TimeUnit.MILLISECONDS)
+                    return Observable.interval(100, TimeUnit.MILLISECONDS)
                             .subscribeOn(Schedulers.computation())
                             .takeUntil(presenter.touchupObservable())
                             .concatMap(e -> secondsDecrementObservable());
@@ -122,7 +122,7 @@ public class TimerTaskInteractor
                     setTimeText(allSeconds);
 
 
-        });
+                });
 
 
         /**
@@ -184,7 +184,6 @@ public class TimerTaskInteractor
 
     /**
      * switch status after clicking startbutton
-     *
      */
     private void startAction() {
 
@@ -268,6 +267,7 @@ public class TimerTaskInteractor
 
     /**
      * if idle
+     *
      * @return
      */
     private boolean isTimerIdle() {
@@ -277,6 +277,7 @@ public class TimerTaskInteractor
 
     /**
      * if can start timer
+     *
      * @return
      */
     private boolean canStartTimer() {
@@ -286,6 +287,7 @@ public class TimerTaskInteractor
 
     /**
      * reduce time
+     *
      * @return
      */
     private Observable<Integer> secondsDecrementObservable() {
@@ -302,6 +304,7 @@ public class TimerTaskInteractor
 
     /**
      * add time
+     *
      * @return
      */
     private Observable<Integer> secondsIncrementObservable() {
@@ -349,6 +352,7 @@ public class TimerTaskInteractor
 
     /**
      * set current time
+     *
      * @param seconds
      */
     private void setTimeText(long seconds) {
@@ -371,6 +375,7 @@ public class TimerTaskInteractor
 
     /**
      * switch label of start button
+     *
      * @param timerStatus
      */
     public void chageStartButtonStatus(TimerStatus timerStatus) {
@@ -415,12 +420,14 @@ public class TimerTaskInteractor
 
         /**
          * get time task name
+         *
          * @return
          */
         String getTimerTaskName();
 
         /**
          * start button click
+         *
          * @return
          */
         Observable<Object> startRequest();
@@ -430,6 +437,7 @@ public class TimerTaskInteractor
 
         /**
          * change start button label
+         *
          * @param textResID
          */
         public void chageStartButtonStatus(int textResID);
@@ -441,24 +449,28 @@ public class TimerTaskInteractor
 
         /**
          * show toast
+         *
          * @param text
          */
         void showToast(String text);
 
         /**
          * show error
+         *
          * @param text
          */
         void showEditTextError(String text);
 
         /**
          * disable/enable up/down button
+         *
          * @param enabled
          */
         void setUpAndDownEabled(boolean enabled);
 
         /**
          * if show reset button
+         *
          * @param show
          */
         void showResetButton(boolean show);

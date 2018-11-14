@@ -74,12 +74,13 @@ class TimerTaskView extends LinearLayout implements TimerTaskInteractor.TimeTask
 
     /**
      * rewrite dispatch events in order to process not to listen problem
+     *
      * @param ev
      * @return
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if(ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent
+        if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent
                 .ACTION_CANCEL) {
             mTouchCancelSubject.onNext(ev);
         }
@@ -98,15 +99,13 @@ class TimerTaskView extends LinearLayout implements TimerTaskInteractor.TimeTask
     public Observable<Object> upLongRequest() {
         return RxView.longClicks(mUpButton)
                 .subscribeOn(AndroidSchedulers
-                .mainThread());
+                        .mainThread());
     }
 
     @Override
     public Observable<Object> touchupObservable() {
         return mTouchCancelSubject;
     }
-
-
 
 
     @Override
@@ -187,7 +186,7 @@ class TimerTaskView extends LinearLayout implements TimerTaskInteractor.TimeTask
 
     @Override
     public void showResetButton(boolean show) {
-        mResetButton.setVisibility(show? View.VISIBLE: View.INVISIBLE);
+        mResetButton.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
 

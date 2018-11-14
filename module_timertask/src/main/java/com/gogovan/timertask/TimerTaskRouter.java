@@ -4,16 +4,16 @@ import com.uber.rib.core.ViewRouter;
 
 /**
  * Adds and removes children of {@link TimerTaskBuilder.TimeTaskScope}.
- *
+ * <p>
  * TODO describe the possible child configurations of this scope.
  */
 public class TimerTaskRouter extends
-    ViewRouter<TimerTaskView, TimerTaskInteractor, TimerTaskBuilder.Component> {
+        ViewRouter<TimerTaskView, TimerTaskInteractor, TimerTaskBuilder.Component> {
 
-  public TimerTaskRouter(
-          TimerTaskView view,
-          TimerTaskInteractor interactor,
-          TimerTaskBuilder.Component component) {
-    super(view, interactor, component);
-  }
+    public TimerTaskRouter(
+            TimerTaskView view,
+            TimerTaskInteractor interactor,
+            TimerTaskBuilder.Component component) {
+        super(view, interactor, component);
+    }
 }
