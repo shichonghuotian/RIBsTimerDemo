@@ -11,21 +11,21 @@ import java.util.List;
 import io.reactivex.Maybe;
 
 /**
- * task的数据库操作
+ * task database operations
  * Created by Arthur on 2018/11/9.
  */
 @Dao
 public interface TimerTaskDao {
 
     /**
-     * 插入一套task
+     * insert a suite of task
      * @param tasks
      */
     @Insert()
     void insertAll(TimerTaskEntity... tasks);
 
     /**
-     * 查询所有的task
+     * query all tasks
      * @return
      */
     @Query("select * from t_timer_task")

@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 /**
- * 定义一个仓库类，避免直接操作本地数据库
+ * define repository to avoid to operate local database directly
  * Created by Arthur on 2018/11/10.
  */
 public class TimerTasksRepository {
@@ -26,7 +26,7 @@ public class TimerTasksRepository {
 
 
     /**
-     * 插入记录
+     * save task record
      * @param taskEntity
      * @return
      */

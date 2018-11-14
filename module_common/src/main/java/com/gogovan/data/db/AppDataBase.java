@@ -7,7 +7,7 @@ import com.gogovan.data.dao.TimerTaskDao;
 import com.gogovan.data.entities.TimerTaskEntity;
 
 /**
- * room 数据库，
+ * room database，
  * Created by Arthur on 2018/11/9.
  */
 @Database(entities = {TimerTaskEntity.class},version =  2, exportSchema = false)

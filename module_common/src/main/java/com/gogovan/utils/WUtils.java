@@ -4,7 +4,7 @@ import java.util.Formatter;
 import java.util.Locale;
 
 /**
- * 工具类
+ * Utils class to common processing
  * Created by Arthur on 2018/11/10.
  */
 public class WUtils<T> {
@@ -15,7 +15,7 @@ public class WUtils<T> {
 
 
     /**
-     *  将时间转换成显示的格式
+     *  format time to string '00:00:00'
      * @param totalSeconds
      * @return 00:00:00
      */
