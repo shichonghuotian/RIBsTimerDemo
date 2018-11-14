@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import com.gogovan.data.entities.TimeTaskEntity;
+import com.gogovan.data.entities.TimerTaskEntity;
 import com.uber.rib.core.Initializer;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ class HistoryView extends LinearLayout implements HistoryInteractor.HistoryPrese
 
     private RecyclerView mRecyclerView;
     private HostoryListAdapter mAdapter;
-    private List<TimeTaskEntity> mList;
+    private List<TimerTaskEntity> mList;
 
     @Initializer
     @Override
@@ -57,7 +57,7 @@ class HistoryView extends LinearLayout implements HistoryInteractor.HistoryPrese
     }
 
     @Override
-    public void loadData(List<TimeTaskEntity> list) {
+    public void loadData(List<TimerTaskEntity> list) {
 
         mList.clear();
         mList.addAll(list);

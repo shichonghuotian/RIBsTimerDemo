@@ -2,7 +2,7 @@ package com.gogovan.di;
 
 import android.app.Application;
 
-import com.gogovan.data.TimeTasksRepository;
+import com.gogovan.data.TimerTasksRepository;
 
 import javax.inject.Singleton;
 
@@ -13,11 +13,11 @@ import dagger.Component;
  * Created by Arthur on 2018/11/9.
  */
 @Singleton
-@Component(modules = {TimeTasksRepositoryModule.class,AppModule.class})
+@Component(modules = {TimerTasksRepositoryModule.class,AppModule.class})
 public interface AppComponent {
 
 
-     TimeTasksRepository getTimeTasksRepository();
+     TimerTasksRepository getTimerTasksRepository();
 
      @Component.Builder
      interface Builder {

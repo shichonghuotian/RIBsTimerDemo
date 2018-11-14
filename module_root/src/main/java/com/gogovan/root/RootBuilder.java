@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 
 import com.gogovan.di.AppComponent;
 import com.gogovan.history.HistoryBuilder;
-import com.gogovan.timetask.TimeTaskBuilder;
+import com.gogovan.timertask.TimerTaskBuilder;
 import com.uber.rib.core.InteractorBaseComponent;
 import com.uber.rib.core.ViewBuilder;
 
@@ -75,7 +75,7 @@ public class RootBuilder
       Component component,
       RootView view,
       RootInteractor interactor) {
-      return new RootRouter(view, interactor, component,new TimeTaskBuilder(component),new
+      return new RootRouter(view, interactor, component,new TimerTaskBuilder(component),new
               HistoryBuilder(component));
     }
 
@@ -87,7 +87,7 @@ public class RootBuilder
   @dagger.Component(modules = Module.class,
        dependencies = {ParentComponent.class})
   interface Component extends InteractorBaseComponent<RootInteractor>, BuilderComponent,
-          TimeTaskBuilder.ParentComponent,HistoryBuilder.ParentComponent {
+          TimerTaskBuilder.ParentComponent,HistoryBuilder.ParentComponent {
 
     @dagger.Component.Builder
     interface Builder {

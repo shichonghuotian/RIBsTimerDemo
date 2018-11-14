@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.gogovan.data.entities.TimeTaskEntity;
+import com.gogovan.data.entities.TimerTaskEntity;
 import com.gogovan.utils.WUtils;
 
 import java.util.List;
@@ -18,16 +18,16 @@ import java.util.List;
  */
 public class HostoryListAdapter extends RecyclerView.Adapter<HostoryListAdapter.ItemViewHolder> {
 
-    private List<TimeTaskEntity> list;
+    private List<TimerTaskEntity> list;
 
-    public HostoryListAdapter(@NonNull List<TimeTaskEntity> list) {
+    public HostoryListAdapter(@NonNull List<TimerTaskEntity> list) {
         this.list = list;
     }
 
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_time_task,parent,
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_timer_task,parent,
                 false);
 
         return new ItemViewHolder(v);
@@ -36,8 +36,8 @@ public class HostoryListAdapter extends RecyclerView.Adapter<HostoryListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
 
-        TimeTaskEntity en = this.list.get(position);
-        holder.setTimeTask(en);
+        TimerTaskEntity en = this.list.get(position);
+        holder.setTimerTask(en);
 
     }
 
@@ -60,7 +60,7 @@ public class HostoryListAdapter extends RecyclerView.Adapter<HostoryListAdapter.
             timeTextView = itemView.findViewById(R.id.time_text);
         }
 
-        public void setTimeTask(TimeTaskEntity entity) {
+        public void setTimerTask(TimerTaskEntity entity) {
 
             nameTextView.setText(entity.getTaskName());
 

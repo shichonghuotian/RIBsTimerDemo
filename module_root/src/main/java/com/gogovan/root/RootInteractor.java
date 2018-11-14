@@ -1,7 +1,6 @@
 package com.gogovan.root;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.uber.rib.core.Bundle;
 import com.uber.rib.core.Interactor;
@@ -39,7 +38,7 @@ public class RootInteractor
             })
             .subscribe(menuType -> {
 
-                if(menuType ==NavMenuType.TIME) {
+                if(menuType ==NavMenuType.TIMER) {
                     getRouter().detachHistoryView();
 
                     presenter.setToolbarTitle(R.string.str_timer);

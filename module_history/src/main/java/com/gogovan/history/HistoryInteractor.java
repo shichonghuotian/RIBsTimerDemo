@@ -2,9 +2,8 @@ package com.gogovan.history;
 
 import android.support.annotation.Nullable;
 
-import com.gogovan.data.TimeTasksRepository;
-import com.gogovan.data.entities.TimeTaskEntity;
-import com.uber.autodispose.ObservableScoper;
+import com.gogovan.data.TimerTasksRepository;
+import com.gogovan.data.entities.TimerTaskEntity;
 import com.uber.rib.core.Bundle;
 import com.uber.rib.core.Interactor;
 import com.uber.rib.core.RibInteractor;
@@ -13,7 +12,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.MaybeObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
@@ -29,7 +27,7 @@ public class HistoryInteractor
     HistoryPresenter presenter;
 
     @Inject
-    TimeTasksRepository repository;
+    TimerTasksRepository repository;
 
 
     @Override
@@ -63,7 +61,7 @@ public class HistoryInteractor
          *
          * @param list
          */
-        void loadData(List<TimeTaskEntity> list);
+        void loadData(List<TimerTaskEntity> list);
 
     }
 }

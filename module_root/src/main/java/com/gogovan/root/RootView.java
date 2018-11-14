@@ -103,8 +103,8 @@ class RootView extends DrawerLayout implements RootInteractor.RootPresenter {
                 .subscribeOn
                 (AndroidSchedulers.mainThread()).map(menuItem -> {
             int id = menuItem.getItemId();
-            if (id == R.id.nav_time_task) {
-                return NavMenuType.TIME;
+            if (id == R.id.nav_timer_task) {
+                return NavMenuType.TIMER;
             } else if (id == R.id.nav_history) {
                 return NavMenuType.HISTORY;
             } else {
