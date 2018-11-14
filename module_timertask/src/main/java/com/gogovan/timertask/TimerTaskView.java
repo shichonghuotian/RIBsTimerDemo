@@ -47,7 +47,7 @@ class TimerTaskView extends LinearLayout implements TimerTaskInteractor.TimeTask
 
 
     /**
-     * 取消点击时使用
+     * run when canceling
      */
     private PublishSubject<Object> mTouchCancelSubject;
 
@@ -73,7 +73,7 @@ class TimerTaskView extends LinearLayout implements TimerTaskInteractor.TimeTask
     }
 
     /**
-     * 重写touch分发事件，处理长按后手指松开不能监听的问题
+     * rewrite dispatch events in order to process not to listen problem
      * @param ev
      * @return
      */

@@ -22,23 +22,23 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Coordinates Business Logic for {@link TimeTaskScope}.
  * <p>
- * timer 的主要业务
+ * timer logic
  */
 @RibInteractor
 public class TimerTaskInteractor
         extends Interactor<TimerTaskInteractor.TimeTaskPresenter, TimerTaskRouter> {
 
     /**
-     * timer最小的秒数
+     * minimal seconds of timer
      */
     private static final int MIN_TIME_SECOND = 1;
     /**
-     * 最大秒数
+     * maximum seconds of timer
      */
     private static final int MAX_TIME_SECOND = 24 * 60 * 60 - 1;
 
     /**
-     * 计时器默认秒数
+     * default seconds of timer
      */
     private static final int DEFAULT_TIME_SECOND = 60;
 
@@ -50,17 +50,17 @@ public class TimerTaskInteractor
     TimeTaskPresenter presenter;
 
     /**
-     * 总的时间，单位为秒
+     * total seconds of timer
      */
     private int allSeconds = DEFAULT_TIME_SECOND;
 
     /**
-     * 剩余的时间
+     * time left by seconds
      */
     private long lastSecond;
 
     /**
-     * 当前timer的状态
+     * current status of timer
      */
     TimerStatus timerStatus = TimerStatus.Idle;
 
@@ -71,7 +71,7 @@ public class TimerTaskInteractor
 
 
     /**
-     * task 存储
+     * task repository
      */
     @Inject
     TimerTasksRepository timerTasksRepository;
@@ -81,10 +81,9 @@ public class TimerTaskInteractor
         super.didBecomeActive(savedInstanceState);
         reset();
 
-
         /**
-         * 长按开始自动增加
-         * 松开手指后取消
+         * auto-increasing by long tap
+         * release to cancel increasing
          */
         presenter.upLongRequest()
                 .flatMap(o -> {
@@ -103,8 +102,8 @@ public class TimerTaskInteractor
         });
 
         /**
-         * 长按数字递减
-         * 松开手指取消
+         * auto-reducing by long tap
+         * release to cancel increasing
          */
         presenter.downLongRequest()
                 .flatMap(o -> {
@@ -127,7 +126,7 @@ public class TimerTaskInteractor
 
 
         /**
-         * 点击增加
+         * to increase when click up
          */
         presenter.upRequest()
                 .filter(o -> {
@@ -143,7 +142,7 @@ public class TimerTaskInteractor
 
 
         /**
-         * 点击减少
+         * to reduce when click down
          */
         presenter.downRequest()
                 .filter(o -> isTimerIdle())
@@ -155,7 +154,7 @@ public class TimerTaskInteractor
 
 
         /**
-         * 开始timer
+         * start timer
          */
         presenter.startRequest().map(o -> canStartTimer())
                 .to(new ObservableScoper<>(this))
@@ -169,7 +168,7 @@ public class TimerTaskInteractor
                 });
 
         /**
-         * 重置计时器
+         * reset timer
          */
         presenter.resetRequest()
                 .filter(o -> !isTimerIdle())
@@ -184,7 +183,7 @@ public class TimerTaskInteractor
     }
 
     /**
-     * 点击startbutton，切换各种状态
+     * switch status after clicking startbutton
      *
      */
     private void startAction() {
@@ -211,7 +210,7 @@ public class TimerTaskInteractor
     }
 
     /**
-     * 开启计时器
+     * start timer
      */
     private void startTimer() {
         timer = Rx2Timer.builder()
@@ -245,7 +244,7 @@ public class TimerTaskInteractor
     }
 
     /**
-     * 重启
+     * resume timer
      */
     private void resumeTimer() {
         if (timer != null) {
@@ -256,7 +255,7 @@ public class TimerTaskInteractor
 
 
     /**
-     * 计时器结束
+     * end up timer
      */
     public void endTimer() {
 
@@ -268,7 +267,7 @@ public class TimerTaskInteractor
     }
 
     /**
-     * 判断是否空闲
+     * if idle
      * @return
      */
     private boolean isTimerIdle() {
@@ -277,7 +276,7 @@ public class TimerTaskInteractor
     }
 
     /**
-     * 是否可以启动定时器
+     * if can start timer
      * @return
      */
     private boolean canStartTimer() {
@@ -286,7 +285,7 @@ public class TimerTaskInteractor
     }
 
     /**
-     * 减少时间
+     * reduce time
      * @return
      */
     private Observable<Integer> secondsDecrementObservable() {
@@ -302,7 +301,7 @@ public class TimerTaskInteractor
     }
 
     /**
-     * 增加时间
+     * add time
      * @return
      */
     private Observable<Integer> secondsIncrementObservable() {
@@ -325,7 +324,7 @@ public class TimerTaskInteractor
 
 
     /**
-     * 保存task记录
+     * save timer task record
      */
     public void saveTimeTask() {
 
@@ -349,7 +348,7 @@ public class TimerTaskInteractor
 
 
     /**
-     * 设置当前time的时间
+     * set current time
      * @param seconds
      */
     private void setTimeText(long seconds) {
@@ -358,7 +357,7 @@ public class TimerTaskInteractor
     }
 
     /**
-     * 重置各种状态
+     * reset all status
      */
     private void reset() {
 
@@ -371,7 +370,7 @@ public class TimerTaskInteractor
 
 
     /**
-     * 切换start button的文字
+     * switch label of start button
      * @param timerStatus
      */
     public void chageStartButtonStatus(TimerStatus timerStatus) {
@@ -396,70 +395,70 @@ public class TimerTaskInteractor
     interface TimeTaskPresenter {
 
 
-        //up点击
+        //up shooting
         Observable<Object> upRequest();
 
-        //up 长按
+        //up long tap
         Observable<Object> upLongRequest();
 
-        //松开
+        //release
         Observable<Object> touchupObservable();
 
-        //down 点击
+        //down shooting
         Observable<Object> downRequest();
 
-        //down 长按
+        //down long tap
         Observable<Object> downLongRequest();
 
-        //reset 点击
+        //reset shooting
         Observable<Object> resetRequest();
 
         /**
-         * 返回 time task 名称
+         * get time task name
          * @return
          */
         String getTimerTaskName();
 
         /**
-         * 开始button 点击
+         * start button click
          * @return
          */
         Observable<Object> startRequest();
 
-        //设置time label文字
+        //set time label
         void setTimeText(String text);
 
         /**
-         * 改变start button文字
+         * change start button label
          * @param textResID
          */
         public void chageStartButtonStatus(int textResID);
 
         /**
-         * 重置
+         * reset timer task
          */
         void resetTimerTask();
 
         /**
-         * 显示toast
+         * show toast
          * @param text
          */
         void showToast(String text);
 
         /**
-         * 显示error
+         * show error
          * @param text
          */
         void showEditTextError(String text);
 
         /**
-         * 禁用/启用 up/down button
+         * disable/enable up/down button
          * @param enabled
          */
         void setUpAndDownEabled(boolean enabled);
 
         /**
-         * 是否显示resetbutton
+         * if show reset button
          * @param show
          */
         void showResetButton(boolean show);

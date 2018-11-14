@@ -1,7 +1,7 @@
 package com.gogovan.root;
 
 /**
- * 定义一个menu 的枚举
+ * define menu navigator enumeration
  * Created by Arthur on 2018/11/10.
  */
 public enum NavMenuType {

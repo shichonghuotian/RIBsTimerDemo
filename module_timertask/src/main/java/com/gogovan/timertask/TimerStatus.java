@@ -1,7 +1,7 @@
 package com.gogovan.timertask;
 
 /**
- * timer 的状态，简单的用enum来处理
+ * timer status enumeration
  * Created by Arthur on 2018/11/13.
  */
 public enum TimerStatus {
