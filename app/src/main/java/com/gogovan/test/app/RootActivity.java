@@ -2,7 +2,7 @@ package com.gogovan.test.app;
 
 import android.view.ViewGroup;
 
-import com.gogovan.data.TimeTasksRepository;
+import com.gogovan.data.TimerTasksRepository;
 import com.gogovan.root.RootBuilder;
 import com.uber.rib.core.RibActivity;
 import com.uber.rib.core.ViewRouter;
@@ -20,8 +20,8 @@ public class RootActivity extends RibActivity {
         RootBuilder rootBuilder = new RootBuilder(new RootBuilder.ParentComponent() {
 
             @Override
-            public TimeTasksRepository getTimeTasksRepository() {
-                return  sampleApplication.getAppComponent().getTimeTasksRepository();
+            public TimerTasksRepository getTimerTasksRepository() {
+                return  sampleApplication.getAppComponent().getTimerTasksRepository();
             }
         });
 

@@ -29,5 +29,5 @@ dependencies {
     implementation project(':module_root')
     implementation project(':module_common')
     implementation project(':module_history')
-    implementation project(':module_timetask')
+    implementation project(':module_timertask')
 }

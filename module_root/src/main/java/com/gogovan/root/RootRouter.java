@@ -4,8 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.gogovan.history.HistoryBuilder;
 import com.gogovan.history.HistoryRouter;
-import com.gogovan.timetask.TimeTaskBuilder;
-import com.gogovan.timetask.TimeTaskRouter;
+import com.gogovan.timertask.TimerTaskBuilder;
+import com.gogovan.timertask.TimerTaskRouter;
 import com.uber.rib.core.ViewRouter;
 
 /**
@@ -17,10 +17,10 @@ import com.uber.rib.core.ViewRouter;
 public class RootRouter extends
         ViewRouter<RootView, RootInteractor, RootBuilder.Component> {
 
-    private final TimeTaskBuilder timeTaskBuilder;
+    private final TimerTaskBuilder timerTaskBuilder;
 
     @Nullable
-    private TimeTaskRouter timeTaskRouter;
+    private TimerTaskRouter timerTaskRouter;
 
     private final HistoryBuilder historyBuilder;
 
@@ -31,12 +31,12 @@ public class RootRouter extends
     public RootRouter(
             RootView view,
             RootInteractor interactor,
-            RootBuilder.Component component, TimeTaskBuilder timeTaskBuilder, HistoryBuilder
+            RootBuilder.Component component, TimerTaskBuilder timerTaskBuilder, HistoryBuilder
                     historyBuilder) {
         super(view, interactor, component);
 
         this.rootView = view;
-        this.timeTaskBuilder = timeTaskBuilder;
+        this.timerTaskBuilder = timerTaskBuilder;
         this.historyBuilder = historyBuilder;
 
     }
@@ -45,10 +45,10 @@ public class RootRouter extends
      * 添加time页面
      */
     void attachTimeTaskView() {
-        timeTaskRouter = timeTaskBuilder.build(getView());
-        attachChild(timeTaskRouter);
+        timerTaskRouter = timerTaskBuilder.build(getView());
+        attachChild(timerTaskRouter);
 
-        this.rootView.addPageView(timeTaskRouter.getView());
+        this.rootView.addPageView(timerTaskRouter.getView());
 
     }
 

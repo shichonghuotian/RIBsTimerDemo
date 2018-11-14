@@ -7,7 +7,7 @@ package com.gogovan.root;
 public enum NavMenuType {
 
     NONE,
-    TIME,
+    TIMER,
     HISTORY
 
 }
