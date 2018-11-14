@@ -1,0 +1,6 @@
+<manifest package="com.gogovan.root"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        />
+</manifest>

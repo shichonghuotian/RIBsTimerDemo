@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">module_timetask</string>
+    <string name="str_task_name">Task Name</string>
+    <string name="str_up">Up</string>
+    <string name="str_down">Down</string>
+    <string name="str_start">Start</string>
+    <string name="str_stop">Stop</string>
+    <string name="str_pause">Continue</string>
+    <string name="str_reset">Reset</string>
+</resources>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.shinetechina.demo"
+<manifest package="com.gogovan.test.app"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name=".SampleApplication"
+        android:name="com.gogovan.test.app.SampleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RootActivity">
+        <activity android:name="com.gogovan.test.app.RootActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
