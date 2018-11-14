@@ -19,7 +19,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
- * root 页面，使用抽屉样式
+ * root view which apply drawer style
  * Top level view for {@link RootBuilder.RootScope}.
  */
 class RootView extends DrawerLayout implements RootInteractor.RootPresenter {
@@ -62,7 +62,7 @@ class RootView extends DrawerLayout implements RootInteractor.RootPresenter {
 
 
     /**
-     * 添加页面
+     * add page view
      *
      * @param view
      */
@@ -73,7 +73,7 @@ class RootView extends DrawerLayout implements RootInteractor.RootPresenter {
     }
 
     /**
-     * 移除页面
+     * remove page view
      *
      * @param view
      */
@@ -82,7 +82,7 @@ class RootView extends DrawerLayout implements RootInteractor.RootPresenter {
     }
 
     /**
-     * 设置toolbar
+     * set toolbar
      *
      * @param title
      */
@@ -91,9 +91,9 @@ class RootView extends DrawerLayout implements RootInteractor.RootPresenter {
 
     }
 
-
     /**
-     * 点击转换一下，interactor，尽量不使用itemid
+     * navigate interactor without itemid
+     *
      * @return
      */
     @Override
@@ -101,17 +101,17 @@ class RootView extends DrawerLayout implements RootInteractor.RootPresenter {
 
         return RxNavigationView.itemSelections((NavigationView) findViewById(R.id.nav_view))
                 .subscribeOn
-                (AndroidSchedulers.mainThread()).map(menuItem -> {
-            int id = menuItem.getItemId();
-            if (id == R.id.nav_timer_task) {
-                return NavMenuType.TIMER;
-            } else if (id == R.id.nav_history) {
-                return NavMenuType.HISTORY;
-            } else {
-                return NavMenuType.NONE;
-            }
+                        (AndroidSchedulers.mainThread()).map(menuItem -> {
+                    int id = menuItem.getItemId();
+                    if (id == R.id.nav_timer_task) {
+                        return NavMenuType.TIMER;
+                    } else if (id == R.id.nav_history) {
+                        return NavMenuType.HISTORY;
+                    } else {
+                        return NavMenuType.NONE;
+                    }
 
-        });
+                });
 
     }
 

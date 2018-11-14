@@ -5,40 +5,40 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
- * 定义task 数据类
+ * Task database entity
  * Created by Arthur on 2018/11/9.
  */
 @Entity(tableName = "t_timer_task")
 public class TimerTaskEntity {
 
     /**
-     * 自增的id
+     * auto-increasing identity
      */
     @PrimaryKey(autoGenerate = true)
     private long tid;
 
     /**
-     * 创建时间
+     * created time
      */
     private long createTime;
 
     /**
-     * task 名
+     * task name
      */
     private String taskName;
 
     /**
-     * 总秒数
+     * total time
      */
     private long totalSeconds;
 
     /**
-     * 在第几秒结束
+     * finish time
      */
     private long finishSeconds;
 
     /**
-     * 是否完成
+     * finish flag
      */
     private Boolean isFinished;
 

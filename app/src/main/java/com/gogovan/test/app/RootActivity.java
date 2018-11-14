@@ -8,7 +8,7 @@ import com.uber.rib.core.RibActivity;
 import com.uber.rib.core.ViewRouter;
 
 /**
- * root activity 入口
+ * root activity entry
  */
 public class RootActivity extends RibActivity {
 

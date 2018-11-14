@@ -13,82 +13,85 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Coordinates Business Logic for {@link RootScope}.
- *
- * 处理root 页面的业务逻辑
+ * <p>
+ * root view logic
  */
 @RibInteractor
 public class RootInteractor
-    extends Interactor<RootInteractor.RootPresenter, RootRouter> {
+        extends Interactor<RootInteractor.RootPresenter, RootRouter> {
 
-  @Inject
-  RootPresenter presenter;
+    @Inject
+    RootPresenter presenter;
 
-  @Override
-  protected void didBecomeActive(@Nullable Bundle savedInstanceState) {
-    super.didBecomeActive(savedInstanceState);
+    @Override
+    protected void didBecomeActive(@Nullable Bundle savedInstanceState) {
+        super.didBecomeActive(savedInstanceState);
 
-    //默认添加taskview
-    getRouter().attachTimeTaskView();
+        //attach taskview
+        getRouter().attachTimeTaskView();
 
-    presenter.navItemSelectionRequest()
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext(o -> {
-                presenter.closeDrawer();;
+        presenter.navItemSelectionRequest()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(o -> {
+                    presenter.closeDrawer();
+                    ;
 
-            })
-            .subscribe(menuType -> {
+                })
+                .subscribe(menuType -> {
 
-                if(menuType ==NavMenuType.TIMER) {
-                    getRouter().detachHistoryView();
+                    if (menuType == NavMenuType.TIMER) {
+                        getRouter().detachHistoryView();
 
-                    presenter.setToolbarTitle(R.string.str_timer);
+                        presenter.setToolbarTitle(R.string.str_timer);
 
-                }else if(menuType == NavMenuType.HISTORY){
+                    } else if (menuType == NavMenuType.HISTORY) {
 
-                    getRouter().attachHistoryView();
-                    presenter.setToolbarTitle(R.string.str_history);
+                        getRouter().attachHistoryView();
+                        presenter.setToolbarTitle(R.string.str_history);
 
-                }
-
-
-            });
+                    }
 
 
-  }
-
-  @Override
-  protected void willResignActive() {
-    super.willResignActive();
+                });
 
 
-  }
+    }
 
-  @Override
-  public boolean handleBackPress() {
+    @Override
+    protected void willResignActive() {
+        super.willResignActive();
 
-    return false;
-  }
 
-  /**
-   * Presenter interface implemented by this RIB's view.
-   */
-  interface RootPresenter {
+    }
 
-      /**
-       * item 选择
-       * @return
-       */
-    Observable navItemSelectionRequest();
+    @Override
+    public boolean handleBackPress() {
 
-      /**
-       * 关闭drawer
-       */
-    void closeDrawer();
+        return false;
+    }
 
-      /**
-       * 设置toolbar
-       * @param titleResId
-       */
-     void setToolbarTitle(int titleResId);
-  }
+    /**
+     * Presenter interface implemented by this RIB's view.
+     */
+    interface RootPresenter {
+
+        /**
+         * item selector
+         *
+         * @return
+         */
+        Observable navItemSelectionRequest();
+
+        /**
+         * close drawer
+         */
+        void closeDrawer();
+
+        /**
+         * set toolbar
+         *
+         * @param titleResId
+         */
+        void setToolbarTitle(int titleResId);
+    }
 }

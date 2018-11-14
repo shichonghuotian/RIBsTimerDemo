@@ -13,13 +13,13 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * 定义数据库的单例
+ * define database singleton instance
  * Created by Arthur on 2018/11/10.
  */
 @Module
 public class TimerTasksRepositoryModule {
     /**
-     * 数据库名称
+     * database name
      */
     private static final String DB_NAME = "RIBsDemo.db";
 

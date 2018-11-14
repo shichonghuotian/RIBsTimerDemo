@@ -21,7 +21,7 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
 /**
  * Builder for the {@link HistoryScope}.
  *
- * 历史记录
+ * History builder
  */
 public class HistoryBuilder
     extends ViewBuilder<HistoryView, HistoryRouter, HistoryBuilder.ParentComponent> {

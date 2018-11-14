@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 历史 view
+ * History view
  * Top level view for {@link HistoryBuilder.HistoryScope}.
  */
 class HistoryView extends LinearLayout implements HistoryInteractor.HistoryPresenter {

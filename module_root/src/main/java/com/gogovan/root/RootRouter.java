@@ -11,8 +11,8 @@ import com.uber.rib.core.ViewRouter;
 /**
  * Adds and removes children of {@link RootBuilder.RootScope}.
  * <p>
- *
- * 页面跳转逻辑
+ * <p>
+ * page switch logic
  */
 public class RootRouter extends
         ViewRouter<RootView, RootInteractor, RootBuilder.Component> {
@@ -42,7 +42,7 @@ public class RootRouter extends
     }
 
     /**
-     * 添加time页面
+     * attach time task view
      */
     void attachTimeTaskView() {
         timerTaskRouter = timerTaskBuilder.build(getView());
@@ -54,7 +54,7 @@ public class RootRouter extends
 
 
     /**
-     * 添加历史页面
+     * attach history view
      */
     void attachHistoryView() {
 
@@ -65,7 +65,7 @@ public class RootRouter extends
     }
 
     /**
-     * 移除历史页面
+     * detach history view
      */
     void detachHistoryView() {
 
